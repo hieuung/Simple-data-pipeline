@@ -1,0 +1,35 @@
+images:
+  airflow:
+    repository: hieuung/dags
+    tag: v5
+
+
+webserver:
+  livenessProbe:
+    initialDelaySeconds: 300
+    timeoutSeconds: 30
+    failureThreshold: 30
+    periodSeconds: 10
+    scheme: HTTP
+  enabled: false
+
+webserver:
+  service:
+    type: LoadBalancer
+
+  defaultUser:
+    enabled: true
+    role: Admin
+    username: admin
+    email: admin@example.com
+    firstName: admin
+    lastName: user
+    password: admin
+    
+webserverSecretKey: ddb44447cd0922d37d40dc0239521f83
+
+extraEnv: |
+  - name: AIRFLOW_CONN_MY_PROD_DATABASE
+    value: 'postgresql+psycopg2://hieuut:hieuut@10.102.224.2:5432/bookstore'
+  - name: PYTHONPATH
+    value: /opt/airflow/dags/

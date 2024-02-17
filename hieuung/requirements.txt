@@ -1,0 +1,2 @@
+apache-airflow-providers-postgres==5.10.0
+Werkzeug==2.2.3
