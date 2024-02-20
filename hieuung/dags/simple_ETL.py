@@ -62,7 +62,12 @@ class ET(BaseOperator):
             created_time = round(time.time() * 1000)
 
             last_date_milisec = self.load_last_run()
-            last_date = datetime.fromtimestamp(last_date_milisec/1000.0).strftime('%Y-%m-%d')
+
+            if self.full_load:
+                last_date = '1970-01-01'
+            else:
+                last_date = datetime.fromtimestamp(last_date_milisec/1000.0).strftime('%Y-%m-%d')
+
             today = datetime.now().strftime('%Y-%m-%d')
 
             logger.info(f"last_date: {last_date}, today: {today}")
@@ -79,7 +84,7 @@ class ET(BaseOperator):
                                 TO_CHAR(
                                     to_timestamp((created_time + 25200000) / 1000.0), 
                                     'YYYY-MM-DD'
-                                ) BETWEEN '{'1970-01-01' if self.full_load else last_date}' AND '{today}'""")
+                                ) BETWEEN '{last_date}' AND '{today}'""")
                 
             data = cur.fetchall()
 

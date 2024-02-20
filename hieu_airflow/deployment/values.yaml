@@ -3,8 +3,10 @@ images:
     repository: hieuung/dags
     tag: v5
 
-
 webserver:
+  service:
+    type: LoadBalancer
+    
   livenessProbe:
     initialDelaySeconds: 300
     timeoutSeconds: 30
@@ -12,10 +14,6 @@ webserver:
     periodSeconds: 10
     scheme: HTTP
   enabled: false
-
-webserver:
-  service:
-    type: LoadBalancer
 
   defaultUser:
     enabled: true
@@ -30,6 +28,8 @@ webserverSecretKey: ddb44447cd0922d37d40dc0239521f83
 
 extraEnv: |
   - name: AIRFLOW_CONN_MY_PROD_DATABASE
-    value: 'postgresql+psycopg2://hieuut:hieuut@10.102.224.2:5432/bookstore'
+    value: 'postgres://hieuut:hieuut@10.102.224.2:5432/bookstore'
+  - name: AIRFLOW_CONN_MY_DATA_LAKE
+    value: 'postgres://hieuut:hieuut@10.102.224.2:5432/datalake'
   - name: PYTHONPATH
     value: /opt/airflow/dags/

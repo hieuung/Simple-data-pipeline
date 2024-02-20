@@ -1,0 +1,40 @@
+configOverrides:
+  secret: |
+    SECRET_KEY = 'JNGuvTCt9FBt6Ox7hwaUWIesHsOU2sZgnzVs01zNEMbPndAgahF6q59F'
+
+init:
+  adminUser:
+    username: admin
+    firstname: Superset
+    lastname: Admin
+    email: admin@superset.com
+    password: admin
+
+service:
+  type: LoadBalancer
+  port: 8088
+  annotations: {}
+    # cloud.google.com/load-balancer-type: "Internal"
+  loadBalancerIP: ~
+  nodePort:
+    # -- (int)
+    http: null
+
+ingress:
+  enabled: false
+  ingressClassName: ~
+  annotations: {}
+    # kubernetes.io/tls-acme: "true"
+    ## Extend timeout to allow long running queries.
+    # nginx.ingress.kubernetes.io/proxy-connect-timeout: "300"
+    # nginx.ingress.kubernetes.io/proxy-read-timeout: "300"
+    # nginx.ingress.kubernetes.io/proxy-send-timeout: "300"
+  path: /
+  pathType: ImplementationSpecific
+  hosts:
+    - chart-example.local
+  tls: []
+  extraHostsRaw: []
+  #  - secretName: chart-example-tls
+  #    hosts:
+  #      - chart-example.local
