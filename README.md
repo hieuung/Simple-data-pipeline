@@ -18,7 +18,7 @@ This pipeline extract data from production database (from project [Simple web-ap
 
 - (Optional) Build your own Airflow image (build your own dags) using .Dockerfile provided
 
-- Deploy Airflow on minikube using built Airflow image (currently my Airflow image)
+- Deploy Airflow on minikube using built Airflow image (currently [my Airflow image](https://hub.docker.com/repository/docker/hieuung/dags/general))
 ```
 cd `path_to_this_repo`/hieu_airflow/deployment
 
